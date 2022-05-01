@@ -1,3 +1,10 @@
+## [1.0.0](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/...v1.0.0) (2022-05-01)
+
+
+### 🛠 Fixes
+
+* Update package.json ([7a13da9](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/7a13da99e03ddb78282ee6b9d38889efa2c148df))
+
 ## [1.0.0](https://gitlab.com/IVAR_Lab/Unity-x-ROS/compare/...v1.0.0) (2022-05-01)
 
 
