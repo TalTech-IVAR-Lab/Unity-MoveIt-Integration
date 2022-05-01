@@ -1,0 +1,25 @@
+{
+  "name": "ee.taltech.ivar.robotics.moveit",
+  "version": "0.0.1",
+  "displayName": "Unity MoveIt Integration",
+  "description": "Collection of scripts for interacting with ROS MoveIt motion planning library from Unity.",
+  "unity": "2020.3",
+  "keywords": [
+    "unity",
+    "ros",
+    "moveit",
+    "integration",
+    "robotics"
+  ],
+  "author": {
+    "name": "Yevhen Bondarenko",
+    "email": "yevhen.bondarenko@taltech.ee",
+    "url": "https://gitlab.com/JGroxz"
+  },
+  "dependencies": {
+    "com.cysharp.unitask": "2.3.1",
+    "ee.taltech.ivar.robotics.ros-industrial": "1.0.2"
+  },
+  "samples": [],
+  "hideInEditor": false
+}
