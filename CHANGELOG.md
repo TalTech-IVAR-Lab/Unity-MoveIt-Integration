@@ -1,3 +1,12 @@
+## [1.0.1](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.0...v1.0.1) (2022-09-09)
+
+
+### 🛠 Fixes
+
+* **General:** Add better MoveIt error code logging ([2504a3a](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/2504a3afc4214e22a0d0a643a75c0add467147c7))
+* **PlanningSceneSynchronizer:** Fix cylinder scaling bug ([9cc04ea](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/9cc04ea1a177597fce1870081d0ecbdcd40cd76b))
+* **PlanningSceneSynchronizer:** Fix cylinder scaling bug (again) ([b7d0c76](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/b7d0c760d44e3c9c0ce7dce03cd7799f8badf4ff))
+
 ## [1.0.0](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/...v1.0.0) (2022-05-01)
 
 
