@@ -1,5 +1,6 @@
 namespace EE.TalTech.IVAR.ROS.MoveItIntegration
 {
+    using System;
     using System.Collections.Generic;
     using Robotics.ROSIndustrial;
     using RosMessageTypes.Geometry;
@@ -21,7 +22,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
     /// Constructing MoveIt planning scene based on Unity scene allows to simplify the development and
     /// facilitate program planning. 
     /// </remarks>
-    public class MoveItPlanningSceneSynchronizer : MonoBehaviour
+    public class MoveItPlanningSceneSynchronizer : RosConnectedBehaviour
     {
         #region Constants
 
@@ -35,9 +36,10 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         #endregion
         
         #region Variables
-        
-        public ROSConnection rosConnection;
 
+        /// <summary>
+        /// Name of the corresponding planning scene in MoveIt.
+        /// </summary>
         public string planningSceneName = "Default";
 
         public UrdfRobotKinematicsDataProvider robotData;
@@ -45,7 +47,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         /// <summary>
         /// List of <see cref="MoveItCollisionObjectAlias"/>s this synchronizer is responsible for.
         /// </summary>
-        public List<MoveItCollisionObjectAlias> synchronizedObjects = new List<MoveItCollisionObjectAlias>();
+        public List<MoveItCollisionObjectAlias> synchronizedObjects = new();
 
         /// <summary>
         /// Set of UIDs of <see cref="MoveItCollisionObjectAlias"/>es tracked as of the last synchronization. 
@@ -54,11 +56,16 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         /// This is used to decide what to do with each object during synchronization updates.
         /// Some objects have to be added to the scene anew, while others may just require a position update, and others have to be removed.
         /// </remarks>
-        private HashSet<string> lastTrackedAliasesUIDs = new HashSet<string>();
+        private HashSet<string> lastTrackedAliasesUIDs = new();
         
         #endregion
 
         #region Public Methods
+
+        private void Awake()
+        {
+            rosConnection.RegisterRosService<ApplyPlanningSceneRequest, ApplyPlanningSceneResponse>(APPLY_PLANNING_SCENE_SERVICE_TOPIC);
+        }
 
         public void Synchronize()
         {
@@ -67,17 +74,14 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
                 scene =
                 {
                     name = planningSceneName,
-                    robot_state = new RobotStateMsg(), // TODO
-                    robot_model_name = robotData.robot.name, // TODO
-                    fixed_frame_transforms = new TransformStampedMsg[0],
+                    fixed_frame_transforms = Array.Empty<TransformStampedMsg>(),
                     allowed_collision_matrix = new AllowedCollisionMatrixMsg(),
-                    link_padding = new LinkPaddingMsg[0],
-                    link_scale = new LinkScaleMsg[0],
-                    object_colors = new ObjectColorMsg[0],
+                    link_padding = Array.Empty<LinkPaddingMsg>(),
+                    link_scale = Array.Empty<LinkScaleMsg>(),
+                    object_colors = Array.Empty<ObjectColorMsg>(),
                     world =
                     {
                         collision_objects = GetUpdatedCollisionObjects(),
-                        octomap = new OctomapWithPoseMsg()
                     },
                     is_diff = true
                 }
@@ -112,7 +116,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
             // Check removed objects
             foreach (var lastUID in lastTrackedAliasesUIDs)
             {
-                
+                // TODO: Check removed objects
             }
             
             foreach (var objectAlias in synchronizedObjects)
@@ -120,7 +124,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
                 CollisionObjectMsg collisionObject = new CollisionObjectMsg();
                 
                 // TODO: handle other cases! action must be determined based on object state
-                if (!lastTrackedAliasesUIDs.Contains(objectAlias.UID))
+                if (!lastTrackedAliasesUIDs.Contains(objectAlias.Uid))
                 {
                     // Newly added object, generate add operation
                     collisionObject = AddCollisionObjectFromAlias(objectAlias);
@@ -129,7 +133,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
                 // if NOT_IN_TRACKED or DESTROYED remove
                 // TODO: objects which only changed their position must be moved
                 // if MOVED move
-                // TODO: objects which changed colliders must be re-synched <- this is performance heavy
+                // TODO: objects which changed colliders must be re-synced <- this is performance heavy
                 // if MODIFIED resync
                 
                 collisionObjects.Add(collisionObject);
@@ -203,7 +207,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
                 {
                     frame_id = robotData.RootLink.name,
                 },
-                id = objectAlias.UID,
+                id = objectAlias.Uid,
                 type = new ObjectTypeMsg(),
                 operation = CollisionObjectMsg.ADD, 
                 primitives = primitives.ToArray(),
@@ -258,7 +262,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
                 rotation = collider.transform.rotation
             };
 
-            // Find collider pose in origin coordinates
+            // Find collider pose in planning scene origin coordinates
             var colliderOriginPose = new Pose
             {
                 position = origin.InverseTransformPoint(colliderWorldPose.position),
@@ -274,7 +278,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         }
 
         /// <summary>
-        /// Converts Unity <see cref="BoxCollider"/> to ROS <see cref="SolidPrimitive"/> box.
+        /// Converts Unity <see cref="BoxCollider"/> to ROS SolidPrimitive box.
         /// </summary>
         /// <param name="boxCollider">Box collider to convert.</param>
         /// <returns>ROS box primitive.</returns>
@@ -295,7 +299,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         }
 
         /// <summary>
-        /// Converts Unity <see cref="SphereCollider"/> to ROS <see cref="SolidPrimitive"/> sphere.
+        /// Converts Unity <see cref="SphereCollider"/> to ROS SolidPrimitive sphere.
         /// </summary>
         /// <param name="sphereCollider">Sphere collider to convert.</param>
         /// <returns>ROS sphere primitive.</returns>
@@ -315,7 +319,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         }
 
         /// <summary>
-        /// Converts Unity <see cref="CapsuleCollider"/> to ROS <see cref="SolidPrimitive"/> cylinder.
+        /// Converts Unity <see cref="CapsuleCollider"/> to ROS SolidPrimitive cylinder.
         /// </summary>
         /// <param name="capsuleCollider">Capsule collider to convert.</param>
         /// <returns>ROS box primitive.</returns>
@@ -331,7 +335,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
             switch (capsuleCollider.direction)
             {
                 case 0:
-                    Debug.LogError($"X-oriented capsules are not yet supported in {nameof(MoveItPlanningSceneSynchronizer)}. We need to figure out an elegant way to map them to ROS.", capsuleCollider);
+                    Debug.LogException(new Exception($"X-oriented capsules are not yet supported in {nameof(MoveItPlanningSceneSynchronizer)}. We need to figure out an elegant way to map them to ROS."), capsuleCollider);
                     height = 0;
                     radius = 0;
                     break;
@@ -340,7 +344,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
                     radius = capsuleCollider.radius * scale.x;
                     break;
                 case 2:
-                    Debug.LogError($"Z-oriented capsules are not yet supported in {nameof(MoveItPlanningSceneSynchronizer)}. We need to figure out an elegant way to map them to ROS.", capsuleCollider);
+                    Debug.LogException(new Exception($"Z-oriented capsules are not yet supported in {nameof(MoveItPlanningSceneSynchronizer)}. We need to figure out an elegant way to map them to ROS."), capsuleCollider);
                     height = 0;
                     radius = 0;
                     break;
@@ -354,16 +358,16 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         }
 
         /// <summary>
-        /// Converts Unity cylinder <see cref="MeshCollider"/> to ROS <see cref="SolidPrimitive"/> cylinder.
+        /// Converts Unity cylinder <see cref="MeshCollider"/> to ROS SolidPrimitive cylinder.
         /// </summary>
         /// <param name="cylinderCollider">Cylinder collider to convert.</param>
         /// <returns>ROS cylinder primitive.</returns>
         private static SolidPrimitiveMsg CylinderColliderToRosCylinderPrimitive(MeshCollider cylinderCollider)
         {
-            var scale = cylinderCollider.transform.lossyScale.To<FLU>();
-            scale = new Vector3<FLU>(Mathf.Abs(scale.x), Mathf.Abs(scale.y), Mathf.Abs(scale.z));
-            float height = scale.y * 2;
-            float radius = scale.x / 2;
+            var unityScale = cylinderCollider.transform.lossyScale;
+
+            float height = unityScale.y * 2f;
+            float radius = Mathf.Max(unityScale.x, unityScale.z) / 2f;
             
             return new SolidPrimitiveMsg
             {

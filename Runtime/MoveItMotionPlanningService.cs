@@ -9,16 +9,16 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
     using UnityEngine;
 
     /// <summary>
-    /// Provides functionality to compute connected robot's IK through MoveIt IK service running in ROS. 
+    /// Provides functionality to compute motion plans for the connected robot through MoveIt planning service running in ROS. 
     /// </summary>
-    public class MoveItIKService : RosConnectedBehaviour
+    public class MoveItMotionPlanningService : RosConnectedBehaviour
     {
         #region Variables
 
         /// <summary>
         /// ROS topic of the IK service.
         /// </summary>
-        public string serviceTopic = "compute_ik";
+        public string serviceTopic = "plan_kinematic_path";
         
         /// <summary>
         /// Robot kinematics data.
@@ -26,13 +26,13 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
         public UrdfRobotKinematicsDataProvider robotKinematics;
 
         /// <summary>
-        /// Maximum amount of time to allow for kinematics solver to produce a solution.
+        /// Maximum amount of time to allow for motion planner to produce a solution.
         /// Computation is aborted if this time limit is reached.
         /// </summary>
         /// <remarks>
         /// This does not account for network latency between Unity and ROS, so the actual time of aborted request may be longer.
         /// </remarks>
-        public float solutionTimeout = 0.1f;
+        public float solutionTimeout = 1.0f;
 
         /// <summary>
         /// Name of the planning group to get the IK solution for.
@@ -58,55 +58,29 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
         /// Computes positions of robot's joints required to reach given pose.
         /// </summary>
         /// <param name="targetWorldPose">Target IK pose in Unity's World space.</param>
-        /// <returns>IK solver service response.</returns>
-        public async UniTask<GetPositionIKResponse> ComputeIK(Pose targetWorldPose)
+        /// <returns>Motion planning service response.</returns>
+        public async UniTask<GetMotionPlanResponse> ComputeMotionPlan(Pose targetWorldPose)
         {
             if (!isActiveAndEnabled)
             {
                 Debug.LogWarning($"IK solution will not be computed because this {nameof(MoveItIKService)} component is disabled.", this);
                 return null;
             }
-        
-            // Convert target pose to the robot's coordinate system
-            var ikPose = new Pose
-            {
-                position = robotKinematics.RootLink.transform.InverseTransformPoint(targetWorldPose.position),
-                rotation = Quaternion.Inverse(robotKinematics.RootLink.transform.rotation) * targetWorldPose.rotation
-            };
 
             // Craft service request
-            var ikServiceRequest = new GetPositionIKRequest
+            var motionPlanningRequest = new MotionPlanRequestMsg()
             {
-                ik_request =
+                goal_constraints = new ConstraintsMsg[]
                 {
-                    avoid_collisions = true,
-                    group_name = planningGroupName,
-                    timeout =
+                    new ConstraintsMsg
                     {
-                        sec = Mathf.FloorToInt(solutionTimeout),
-                        nanosec = (int) (solutionTimeout * 1000000000 % 1000000000)
-                    },
-                    constraints = { },
-                    pose_stamped =
-                    {
-                        pose =
-                        {
-                            position = ikPose.position.To<FLU>(),
-                            orientation = ikPose.rotation.To<FLU>()
-                        }
-                    },
-                    robot_state =
-                    {
-                        joint_state =
-                        {
-                            name = robotKinematics.jointNames.ToArray(),
-                            position = robotKinematics.jointArticulationBodies.Select(jointBody => 0d).ToArray()
-                        }
+                        
                     }
-                }
+                },
+                allowed_planning_time = solutionTimeout,
             };
             
-            var response = await rosConnection.SendServiceMessage<GetPositionIKResponse>(serviceTopic, ikServiceRequest);
+            var response = await rosConnection.SendServiceMessage<GetMotionPlanResponse>(serviceTopic, motionPlanningRequest);
             return response;
         }
 
