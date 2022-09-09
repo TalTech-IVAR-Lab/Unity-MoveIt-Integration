@@ -1,8 +1,9 @@
-namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
+namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
 {
     using System;
     using System.Linq;
-    using Robotics.ROSIndustrial;
+    using Cysharp.Threading.Tasks;
+    using ROSIndustrial;
     using RosMessageTypes.Moveit;
     using Unity.Robotics.ROSTCPConnector.ROSGeometry;
     using UnityEngine;
@@ -33,6 +34,11 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         /// </remarks>
         public float solutionTimeout = 0.1f;
 
+        /// <summary>
+        /// Name of the planning group to get the IK solution for.
+        /// </summary>
+        public string planningGroupName = "manipulator";
+
         #endregion
 
         #region Unity Callbacks
@@ -40,28 +46,28 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         private void OnEnable()
         {
             bool isConnected = !rosConnection.HasConnectionError && rosConnection.HasConnectionThread;
-                
+            
             rosConnection.RegisterRosService<GetPositionIKRequest, GetPositionIKResponse>(serviceTopic);
         }
 
         #endregion
 
         #region Public Methods
-        
+
         /// <summary>
         /// Computes positions of robot's joints required to reach given pose.
         /// </summary>
         /// <param name="targetWorldPose">Target IK pose in Unity's World space.</param>
-        /// <param name="resultsHandler">Callback to process the IK results.</param>
-        public void ComputeIK(Pose targetWorldPose, Action<GetPositionIKResponse> resultsHandler)
+        /// <returns>IK solver service response.</returns>
+        public async UniTask<GetPositionIKResponse> ComputeIK(Pose targetWorldPose)
         {
             if (!isActiveAndEnabled)
             {
                 Debug.LogWarning($"IK solution will not be computed because this {nameof(MoveItIKService)} component is disabled.", this);
-                return;
+                return null;
             }
         
-            // Convert target pose to robot coordinate system
+            // Convert target pose to the robot's coordinate system
             var ikPose = new Pose
             {
                 position = robotKinematics.RootLink.transform.InverseTransformPoint(targetWorldPose.position),
@@ -74,7 +80,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
                 ik_request =
                 {
                     avoid_collisions = true,
-                    group_name = "arm",
+                    group_name = planningGroupName,
                     timeout =
                     {
                         sec = Mathf.FloorToInt(solutionTimeout),
@@ -100,7 +106,8 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
                 }
             };
             
-            rosConnection.SendServiceMessage(serviceTopic, ikServiceRequest, resultsHandler);
+            var response = await rosConnection.SendServiceMessage<GetPositionIKResponse>(serviceTopic, ikServiceRequest);
+            return response;
         }
 
         #endregion
