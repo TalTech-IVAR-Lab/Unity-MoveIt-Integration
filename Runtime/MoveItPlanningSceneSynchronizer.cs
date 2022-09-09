@@ -364,14 +364,10 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
         /// <returns>ROS cylinder primitive.</returns>
         private static SolidPrimitiveMsg CylinderColliderToRosCylinderPrimitive(MeshCollider cylinderCollider)
         {
-            var scale = cylinderCollider.transform.lossyScale.To<FLU>();
-            scale = new Vector3<FLU>(
-                Mathf.Abs(scale.x / 2),
-                Mathf.Abs(scale.y / 2),
-                Mathf.Abs(scale.z / 2)
-                );
-            float height = scale.y;
-            float radius = scale.x;
+            var unityScale = cylinderCollider.transform.lossyScale;
+
+            float height = unityScale.y * 2f;
+            float radius = Mathf.Max(unityScale.x, unityScale.z) / 2f;
             
             return new SolidPrimitiveMsg
             {
