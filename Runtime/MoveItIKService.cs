@@ -1,4 +1,4 @@
-namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
+namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
 {
     using System.Linq;
     using Cysharp.Threading.Tasks;
