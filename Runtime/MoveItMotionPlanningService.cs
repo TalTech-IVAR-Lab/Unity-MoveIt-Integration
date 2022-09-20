@@ -1,11 +1,8 @@
 namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
 {
-    using System;
-    using System.Linq;
     using Cysharp.Threading.Tasks;
     using ROSIndustrial;
     using RosMessageTypes.Moveit;
-    using Unity.Robotics.ROSTCPConnector.ROSGeometry;
     using UnityEngine;
 
     /// <summary>
@@ -19,7 +16,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
         /// ROS topic of the IK service.
         /// </summary>
         public string serviceTopic = "plan_kinematic_path";
-        
+
         /// <summary>
         /// Robot kinematics data.
         /// </summary>
@@ -46,7 +43,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
         private void OnEnable()
         {
             bool isConnected = !rosConnection.HasConnectionError && rosConnection.HasConnectionThread;
-            
+
             rosConnection.RegisterRosService<GetPositionIKRequest, GetPositionIKResponse>(serviceTopic);
         }
 
@@ -73,13 +70,11 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
                 goal_constraints = new ConstraintsMsg[]
                 {
                     new ConstraintsMsg
-                    {
-                        
-                    }
+                        { }
                 },
                 allowed_planning_time = solutionTimeout,
             };
-            
+
             var response = await rosConnection.SendServiceMessage<GetMotionPlanResponse>(serviceTopic, motionPlanningRequest);
             return response;
         }

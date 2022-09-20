@@ -6,9 +6,7 @@ namespace EE.TalTech.IVAR.ROS.MoveItIntegration
     using RosMessageTypes.Geometry;
     using RosMessageTypes.Moveit;
     using RosMessageTypes.ObjectRecognition;
-    using RosMessageTypes.Octomap;
     using RosMessageTypes.Shape;
-    using Unity.Robotics.ROSTCPConnector;
     using Unity.Robotics.ROSTCPConnector.ROSGeometry;
     using UnityEngine;
     using RosPose = RosMessageTypes.Geometry.PoseMsg;
