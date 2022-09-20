@@ -1,3 +1,10 @@
+## [1.0.2](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.1...v1.0.2) (2022-09-20)
+
+
+### 🛠 Fixes
+
+* Optimize imports ([693c45e](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/693c45e0c22591b0f5a191e365313b951135254e))
+
 ## [1.0.1](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.0...v1.0.1) (2022-09-09)
 
 
