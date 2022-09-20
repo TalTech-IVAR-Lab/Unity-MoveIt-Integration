@@ -1,6 +1,5 @@
 namespace EE.TalTech.IVAR.Robotics.MoveItIntegration.Utils
 {
-    using System;
     using System.Linq;
     using Cysharp.Threading.Tasks;
     using ROSIndustrial;
