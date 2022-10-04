@@ -48,6 +48,6 @@ namespace EE.TalTech.IVAR.Robotics.ROSIndustrial.MoveItIntegration
     /// </summary>
     public class MoveItErrorCode : StatusCodeBase<MoveItErrorCodeEnum>
     {
-        public MoveItErrorCode(int code) : base(code) { }
+        public MoveItErrorCode(int value) : base(value) { }
     }
 }
