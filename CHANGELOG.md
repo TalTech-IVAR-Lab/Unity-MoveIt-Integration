@@ -1,3 +1,10 @@
+## [1.0.3](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.2...v1.0.3) (2022-09-20)
+
+
+### 🛠 Fixes
+
+* Fix namespaces ([6b6ee65](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/6b6ee65713514c2cf5a31c99df8e6e0cec862902))
+
 ## [1.0.2](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.1...v1.0.2) (2022-09-20)
 
 
