@@ -1,3 +1,10 @@
+## [1.1.0](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.3...v1.1.0) (2022-10-05)
+
+
+### 🚀 Features
+
+* Add MoveItRobotMotionController ([8f4ece2](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/8f4ece29459747e732dd6191d08a4c9a7c5774bb))
+
 ## [1.0.3](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.2...v1.0.3) (2022-09-20)
 
 
