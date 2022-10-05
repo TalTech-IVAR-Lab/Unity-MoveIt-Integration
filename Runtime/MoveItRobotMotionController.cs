@@ -141,6 +141,18 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
             return true;
         }
 
+        public void MoveToZeroNoWait()
+        {
+            MoveToZero().Forget();
+        }
+
+        public async UniTask<bool> MoveToZero()
+        {
+            string[] names = robotKinematics.jointNames.ToArray();
+            double[] zeros = new double[robotKinematics.joints.Count];
+            return await Move(names, zeros);
+        }
+
         public async UniTask<bool> Move(string[] jointNames, double[] positions, CancellationToken cancellationToken = default)
         {
             // If previous planning operation has not been completed, cancel it
