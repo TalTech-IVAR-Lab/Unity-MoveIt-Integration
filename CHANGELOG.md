@@ -1,3 +1,10 @@
+## [1.2.0](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.1.0...v1.2.0) (2022-10-05)
+
+
+### 🚀 Features
+
+* Add MoveToZero() method to MoveItRobotController ([4707a0b](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/4707a0bbad89af45d050547e46b396f970ab3ce5))
+
 ## [1.1.0](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.0.3...v1.1.0) (2022-10-05)
 
 
