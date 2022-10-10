@@ -1,3 +1,10 @@
+## [1.2.1](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.0...v1.2.1) (2022-10-10)
+
+
+### 🛠 Fixes
+
+* Implement cartesian motion in MoveIt Robot Controller ([8abd502](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/8abd502865c9b51694ce5acbef82023542dd4919))
+
 ## [1.2.0](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.1.0...v1.2.0) (2022-10-05)
 
 
