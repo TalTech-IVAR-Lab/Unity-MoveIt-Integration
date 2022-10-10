@@ -1,6 +1,7 @@
 namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
 {
     using System.Linq;
+    using System.Security.Cryptography;
     using Cysharp.Threading.Tasks;
     using ROSIndustrial;
     using RosMessageTypes.Moveit;
@@ -72,6 +73,28 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
                 position = robotKinematics.RootLink.transform.InverseTransformPoint(targetWorldPose.position),
                 rotation = Quaternion.Inverse(robotKinematics.RootLink.transform.rotation) * targetWorldPose.rotation
             };
+            
+            var rosPosition = ikPose.position.To<FLU>();
+            var rosOrientation = ikPose.rotation.To<FLU>();
+
+            var rosPose = new Pose
+            {
+                position = new Vector3
+                {
+                    x = rosPosition.x,
+                    y = rosPosition.y,
+                    z = rosPosition.z,
+                },
+                rotation = new Quaternion
+                {
+                    x = rosOrientation.x,
+                    y = rosOrientation.y,
+                    z = rosOrientation.z,
+                    w = rosOrientation.w,
+                }
+            };
+            
+            Debug.LogWarning($"Getting solution for: {rosPose}");
 
             // Craft service request
             var ikServiceRequest = new GetPositionIKRequest
