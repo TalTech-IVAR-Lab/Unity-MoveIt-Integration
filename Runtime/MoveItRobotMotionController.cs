@@ -162,6 +162,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         {
             string[] names = robotKinematics.jointNames.ToArray();
             double[] zeros = new double[robotKinematics.joints.Count];
+            zeros[3] = 90f;  // temporary home position fix for the experiments (TODO: remove)
             return await Move(names, zeros);
         }
 
