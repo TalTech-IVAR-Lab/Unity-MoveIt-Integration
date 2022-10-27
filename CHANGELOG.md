@@ -1,3 +1,10 @@
+## [1.2.2](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.1...v1.2.2) (2022-10-18)
+
+
+### 🛠 Fixes
+
+* Change default robot zero position for the experiment ([241774d](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/241774d867f3ec8d92e675375c8a4220f440fd85))
+
 ## [1.2.1](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.0...v1.2.1) (2022-10-10)
 
 
