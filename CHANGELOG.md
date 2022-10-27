@@ -1,3 +1,10 @@
+## [1.2.3](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.2...v1.2.3) (2022-10-27)
+
+
+### 🛠 Fixes
+
+* Fix home position in the controller script ([368405a](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/368405a036975cffc84bd4051ff7b609a2c788d1))
+
 ## [1.2.2](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.1...v1.2.2) (2022-10-18)
 
 
