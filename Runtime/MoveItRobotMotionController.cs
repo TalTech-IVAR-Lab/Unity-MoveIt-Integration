@@ -13,7 +13,6 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
     using RosMessageTypes.Std;
     using Unity.Robotics.ROSTCPConnector.ROSGeometry;
     using UnityEngine;
-    using UnityEngine.Serialization;
     using MoveGroupActionClient = ROSIndustrial.Actions.RosActionClient<
         RosMessageTypes.Moveit.MoveGroupActionGoal,
         RosMessageTypes.Moveit.MoveGroupActionFeedback,
@@ -162,7 +161,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         {
             string[] names = robotKinematics.jointNames.ToArray();
             double[] zeros = new double[robotKinematics.joints.Count];
-            zeros[3] = 90f;  // temporary home position fix for the experiments (TODO: remove)
+            zeros[4] = 90f;  // temporary home position fix for the experiments (TODO: remove)
             return await Move(names, zeros);
         }
 
