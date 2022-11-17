@@ -3,6 +3,19 @@
 
 ### 🛠 Fixes
 
+* Revert to int ([d79b013](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/d79b0134f3fb293f484316cfbc8bdb38e9dad35f))
+* uint conversion in MoveItIKService ([0b715fd](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/0b715fd3e5b917b468aa61db05b9cdc2927c31d6))
+
+
+### Other
+
+* **release:** 1.2.4 [skip ci] ([0853907](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/08539071dcb8600545847c174cea8d6a12f1be11))
+
+## [1.2.4](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.3...v1.2.4) (2022-11-17)
+
+
+### 🛠 Fixes
+
 * uint conversion in MoveItIKService ([0b715fd](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/0b715fd3e5b917b468aa61db05b9cdc2927c31d6))
 
 ## [1.2.3](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.2...v1.2.3) (2022-10-27)
