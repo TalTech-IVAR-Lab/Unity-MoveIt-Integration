@@ -106,7 +106,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
                     timeout =
                     {
                         sec = Mathf.FloorToInt(solutionTimeout),
-                        nanosec = (uint) (solutionTimeout * 1000000000 % 1000000000)
+                        nanosec = (int) (solutionTimeout * 1000000000 % 1000000000)
                     },
                     constraints = { },
                     pose_stamped =
