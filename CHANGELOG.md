@@ -1,3 +1,10 @@
+## [1.2.4](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.3...v1.2.4) (2022-11-17)
+
+
+### 🛠 Fixes
+
+* uint conversion in MoveItIKService ([0b715fd](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/0b715fd3e5b917b468aa61db05b9cdc2927c31d6))
+
 ## [1.2.3](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.2...v1.2.3) (2022-10-27)
 
 

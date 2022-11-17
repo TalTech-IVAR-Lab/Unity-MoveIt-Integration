@@ -1,6 +1,6 @@
 {
   "name": "ee.taltech.ivar.robotics.moveit",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "displayName": "Unity MoveIt Integration",
   "description": "Collection of scripts for interacting with ROS MoveIt motion planning library from Unity.",
   "unity": "2020.3",
