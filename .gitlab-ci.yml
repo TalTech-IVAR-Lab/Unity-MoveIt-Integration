@@ -13,10 +13,6 @@ semantic-release:
     # This matches pre-releases
     - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
   script:
-    # join ZeroTier Network
-    - apt install gpg
-    - curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | bash; fi
-    - zerotier-cli join $ZEROTIER_NETWORK_ID
     # install dependencies
     - > 
       npm install --no-save
