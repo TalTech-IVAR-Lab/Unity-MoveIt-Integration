@@ -1,3 +1,10 @@
+## [1.2.5](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.4...v1.2.5) (2022-12-13)
+
+
+### 🛠 Fixes
+
+* Change initialization moment on scripts using ROS Connection ([03161ef](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/03161ef88feee7fb51de1a80a8ac127ada108714))
+
 ## [1.2.4](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.3...v1.2.4) (2022-11-17)
 
 
