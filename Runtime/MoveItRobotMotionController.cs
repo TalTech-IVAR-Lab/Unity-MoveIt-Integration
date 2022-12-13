@@ -94,7 +94,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
 
         #region Unity Callbacks
 
-        private void OnEnable()
+        private void Start()
         {
             rosConnection.RegisterRosService<TriggerRequest, TriggerResponse>(robotEnableServiceTopic);
             rosConnection.RegisterRosService<TriggerRequest, TriggerResponse>(robotDisableServiceTopic);
