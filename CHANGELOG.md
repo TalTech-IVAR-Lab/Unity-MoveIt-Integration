@@ -1,3 +1,23 @@
+## [1.2.5](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.4...v1.2.5) (2022-12-13)
+
+
+### 🛠 Fixes
+
+* Change initialization moment on scripts using ROS Connection ([03161ef](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/03161ef88feee7fb51de1a80a8ac127ada108714))
+
+## [1.2.4](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.3...v1.2.4) (2022-11-17)
+
+
+### 🛠 Fixes
+
+* Revert to int ([d79b013](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/d79b0134f3fb293f484316cfbc8bdb38e9dad35f))
+* uint conversion in MoveItIKService ([0b715fd](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/0b715fd3e5b917b468aa61db05b9cdc2927c31d6))
+
+
+### Other
+
+* **release:** 1.2.4 [skip ci] ([0853907](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/commit/08539071dcb8600545847c174cea8d6a12f1be11))
+
 ## [1.2.4](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.3...v1.2.4) (2022-11-17)
 
 

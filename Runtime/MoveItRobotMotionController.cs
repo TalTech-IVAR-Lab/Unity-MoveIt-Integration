@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
 {
     using System.Collections.Generic;
@@ -94,7 +96,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
 
         #region Unity Callbacks
 
-        private void OnEnable()
+        private void Start()
         {
             rosConnection.RegisterRosService<TriggerRequest, TriggerResponse>(robotEnableServiceTopic);
             rosConnection.RegisterRosService<TriggerRequest, TriggerResponse>(robotDisableServiceTopic);
@@ -252,7 +254,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
             // If previous planning operation has not been completed, cancel it
             CancelLastPlanningGoal();
 
-            // Convert pose from world space to robot's local space
+            // Convert world space pose into an offset in the robot's local space
             var baseLinkTransform = robotKinematics.RootLink.transform;
             
             cartesianRequestReferenceTransform.SetParent(baseLinkTransform);
@@ -260,16 +262,14 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
             cartesianRequestReferenceTransform.rotation = targetWorldPose.rotation;
 
             var targetPosition = cartesianRequestReferenceTransform.InverseTransformPoint(targetWorldPose.position);
-            var rosPosition = targetPosition.To<FLU>();
-            rosPosition *= -1f;
+            var targetPositionOffset = targetPosition * -1f;
+            var rosPosition = targetPositionOffset.To<FLU>();
 
-            var rosOrientation = cartesianRequestReferenceTransform.rotation.To<FLU>();
+            var rosOrientation = cartesianRequestReferenceTransform.localRotation.To<FLU>();
             
-            // 
-
+            // Other parameters
             string baseLinkName = robotKinematics.RootLink.name;
-            string endEffectorLinkName = "tool0"; //robotKinematics.links.Last().name;
-
+            string endEffectorLinkName = robotKinematics.links.Last().name;
             double goalWeight = 1;
 
             Debug.Log($"Planning cartesian motion for end-effector link '{endEffectorLinkName}' to {rosPosition} {rosOrientation}.");

@@ -43,7 +43,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
 
         #region Unity Callbacks
 
-        private void OnEnable()
+        private void Start()
         {
             bool isConnected = !rosConnection.HasConnectionError && rosConnection.HasConnectionThread;
             
