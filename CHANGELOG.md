@@ -1,3 +1,15 @@
+## [1.2.7](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/compare/v1.2.6...v1.2.7) (2023-01-06)
+
+
+### ⚙️ CI/CD
+
+* WIP on GitHub CI ([9e5c8a4](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/commit/9e5c8a4630cb8ddd8672d621ae378c59262913a1))
+
+
+### 🛠 Fixes
+
+* Remove GitLab CI files ([4154875](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/commit/4154875e88349301c7c0ed9eb7e55be9e92be579))
+
 ## [1.2.6](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/compare/v1.2.5...v1.2.6) (2023-01-06)
 
 
