@@ -9,7 +9,7 @@ on:
       - 'main'
 
 jobs:
-  publish:
+  "Publish package":
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
