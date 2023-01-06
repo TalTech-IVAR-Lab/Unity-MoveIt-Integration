@@ -33,7 +33,7 @@ generateNotes:
         - type: 'build'
           section: '🐙 CI/CD'
         - type: 'chore'
-          section: 'Other'
+          section: '🎲 Other'
         - type: 'ci'
           section: '🐙 CI/CD'
         - type: 'docs'
