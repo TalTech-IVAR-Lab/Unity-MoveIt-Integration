@@ -18,7 +18,6 @@ jobs:
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         with:
-          dry_run: true
           extra_plugins: |
             @semantic-release/exec
             @semantic-release/npm
