@@ -31,11 +31,11 @@ generateNotes:
     presetConfig:
       types:  # only works with 'conventionalcommits' preset
         - type: 'build'
-          section: '🐙 CI/CD'
+          section: '⚙️ CI/CD'
         - type: 'chore'
           section: '🎲 Other'
         - type: 'ci'
-          section: '🐙 CI/CD'
+          section: '⚙️ CI/CD'
         - type: 'docs'
           section: '📔 Docs'
         - type: 'example'
