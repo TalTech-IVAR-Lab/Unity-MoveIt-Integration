@@ -1,3 +1,16 @@
+## [1.2.6](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/compare/v1.2.5...v1.2.6) (2023-01-06)
+
+
+### 🐙 CI/CD
+
+* Update CI for GitHub ([b98eddd](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/commit/b98edddba3c0aa257e80eb0a56e3210ac7006a9b))
+* WIP on GitHub CI ([700a871](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/commit/700a871cccc4b7abb52f5c00314ff7bf327c32f2))
+
+
+### 🛠 Fixes
+
+* Fix IK target pose calculation in MoveCartesian() ([080bdc0](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/commit/080bdc05466455101fea756aebc5020e9ce65881))
+
 ## [1.2.5](https://gitlab.com/IVAR_Lab/Unity-MoveIt-Integration/compare/v1.2.4...v1.2.5) (2022-12-13)
 
 
