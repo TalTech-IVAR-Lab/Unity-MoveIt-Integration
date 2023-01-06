@@ -12,7 +12,9 @@ plugins:
       verifyConditionsCmd: "npm config set registry $NPM_REGISTRY"
   - "@semantic-release/npm"
   - "@semantic-release/git"
-  - "@semantic-release/github"
+  - # disabling success comment to avoid CI workflow breaking (https://github.com/semantic-release/github/issues/415#issuecomment-924001799)
+    - "@semantic-release/github"
+    - successComment: false
 branches:
   - "main"
   - "+([0-9])?(.{+([0-9]),x}).x"
