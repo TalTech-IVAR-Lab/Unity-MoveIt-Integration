@@ -1,4 +1,4 @@
-# Unity MoveIt Package
+# Unity MoveIt Integration
 
 Collection of scripts for interacting with ROS MoveIt motion planning library from Unity.
 
