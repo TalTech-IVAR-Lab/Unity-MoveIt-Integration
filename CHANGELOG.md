@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/compare/v1.2.9...v1.2.10) (2023-01-15)
+
+
+### 🛠 Fixes
+
+* Update dependencies ([22c0a26](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/commit/22c0a26901a00aaaf58421ced06f6305042eaeb9))
+
 ## [1.2.9](https://github.com/TalTech-IVAR-Lab/Unity-MoveIt-Integration/compare/v1.2.8...v1.2.9) (2023-01-08)
 
 
