@@ -69,7 +69,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         /// Motion acceleration multiplier.
         /// </summary>
         [Range(0.0001f, 1f)]
-        public double accelerationScalingFactor = 1d;
+        public double accelerationScalingFactor = 0.1d;
 
         /// <summary>
         /// Name of MoveIt's motion planning group to be used for trajectory execution.
