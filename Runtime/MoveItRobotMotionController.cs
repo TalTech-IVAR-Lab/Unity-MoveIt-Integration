@@ -69,7 +69,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         /// Motion acceleration multiplier.
         /// </summary>
         [Range(0.0001f, 1f)]
-        public double accelerationScalingFactor = 1d;
+        public double accelerationScalingFactor = 0.1d;
 
         /// <summary>
         /// Name of MoveIt's motion planning group to be used for trajectory execution.
@@ -249,7 +249,21 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
         /// <param name="targetWorldPose"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async UniTask<bool> MoveCartesian(Pose targetWorldPose, CancellationToken cancellationToken = default)
+        public UniTask<bool> MoveCartesian(Pose targetWorldPose, CancellationToken cancellationToken = default)
+        {
+            return MoveCartesianWithPlanner(targetWorldPose, "LIN", cancellationToken);
+        }
+
+        /// <summary>
+        /// Moves robot's end-effector link to the given pose using Pilz PTP. Useful for approaching the start of a path
+        /// before executing visible path segments with LIN.
+        /// </summary>
+        public UniTask<bool> MoveCartesianPtp(Pose targetWorldPose, CancellationToken cancellationToken = default)
+        {
+            return MoveCartesianWithPlanner(targetWorldPose, "PTP", cancellationToken);
+        }
+
+        private async UniTask<bool> MoveCartesianWithPlanner(Pose targetWorldPose, string plannerId, CancellationToken cancellationToken = default)
         {
             // If previous planning operation has not been completed, cancel it
             CancelLastPlanningGoal();
@@ -272,7 +286,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
             string endEffectorLinkName = robotKinematics.links.Last().name;
             double goalWeight = 1;
 
-            Debug.Log($"Planning cartesian motion for end-effector link '{endEffectorLinkName}' to {rosPosition} {rosOrientation}.");
+            Debug.Log($"Planning cartesian {plannerId} motion for end-effector link '{endEffectorLinkName}' to {rosPosition} {rosOrientation}.");
 
             // Volume
             var positionConstraintRegion = new BoundingVolumeMsg
@@ -300,7 +314,7 @@ namespace EE.TalTech.IVAR.Robotics.MoveItIntegration
                 request = new MotionPlanRequestMsg
                 {
                     pipeline_id = "pilz_industrial_motion_planner",
-                    planner_id = "LIN",
+                    planner_id = plannerId,
                     group_name = motionPlanningGroup,
                     max_velocity_scaling_factor = velocityScalingFactor,
                     max_acceleration_scaling_factor = accelerationScalingFactor,
